@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/database/prisma.service'
 import CreateExpertDto from './dtos/create-experts'
+import UpdateExpertDto from './dtos/update-experts'
 
 @Injectable()
 export class ExpertsService {
@@ -8,6 +9,14 @@ export class ExpertsService {
 
 	async findAllExperts() {
 		return await this.prismaService.expert.findMany()
+	}
+
+	async findOne(id: string) {
+		return await this.prismaService.expert.findFirst({
+			where: {
+				id
+			}
+		})
 	}
 
 	async findExpertByEmail(email: string) {
@@ -22,11 +31,11 @@ export class ExpertsService {
 		return await this.prismaService.expert.create({ data })
 	}
 
-	async updateExpert(data: CreateExpertDto) {
+	async updateExpert(id: string, data: UpdateExpertDto) {
 		return await this.prismaService.expert.update({
 			data,
 			where: {
-				email: data.email
+				id
 			}
 		})
 	}
