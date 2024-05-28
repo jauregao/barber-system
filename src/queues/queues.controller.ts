@@ -5,7 +5,6 @@ import {
 	Get,
 	HttpStatus,
 	NotFoundException,
-	Param,
 	Post,
 	Query,
 	Res
@@ -44,17 +43,17 @@ export class QueuesController {
 
 	@Get()
 	async getExpertQueues(
-		@Query('expertId') data: CreateQueueDto,
+		@Query('expertId') expertId: string,
 		@Res() res: Response
 	) {
-		if (data.expertId) {
-			const expertExist = await this.expertService.findOne(data.expertId)
+		if (expertId) {
+			const expertExist = await this.expertService.findOne(expertId)
 
 			if (!expertExist) {
 				throw new NotFoundException('Profissional não encontrado.')
 			}
 
-			const queues = this.queuesService.getExpertQueues(data.expertId)
+			const queues = await this.queuesService.getExpertQueues(expertId)
 			return res.status(HttpStatus.OK).json(queues)
 		}
 

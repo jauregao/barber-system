@@ -11,10 +11,17 @@ export class QueuesService {
 	}
 
 	async queueExpertsExistsToday(expertId: string) {
+		const startOfDay = new Date()
+		startOfDay.setHours(0, 0, 0, 0)
+
+		const endOfDay = new Date()
+		endOfDay.setHours(23, 59, 59, 999)
+
 		return await this.prisma.queue.findFirst({
 			where: {
 				createdAt: {
-					equals: new Date()
+					gte: startOfDay,
+					lt: endOfDay
 				},
 				expertId
 			}
@@ -29,6 +36,10 @@ export class QueuesService {
 		return this.prisma.queue.findMany({
 			where: {
 				expertId
+			},
+			include: {
+				expert: true,
+				QueueCustomer: true
 			}
 		})
 	}
