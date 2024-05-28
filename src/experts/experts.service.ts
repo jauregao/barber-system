@@ -40,7 +40,7 @@ export class ExpertsService {
 		})
 	}
 
-	async deleteExpert(email: string) {
-		return await this.prismaService.expert.delete({ where: { email } })
+	async deleteExpert(id: string) {
+		return await this.prismaService.expert.delete({ where: { id } })
 	}
 }
