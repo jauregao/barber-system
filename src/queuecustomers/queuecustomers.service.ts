@@ -25,4 +25,23 @@ export class QueuecustomersService {
 			}
 		})
 	}
+
+	async attendCustomer(customerId: number) {
+		return await this.prisma.queueCustomer.update({
+			where: {
+				id: customerId
+			},
+			data: {
+				isAwaiting: false
+			}
+		})
+	}
+
+	async getCustomer(customerId: number) {
+		return await this.prisma.queueCustomer.findFirst({
+			where: {
+				id: customerId
+			}
+		})
+	}
 }
