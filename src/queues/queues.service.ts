@@ -48,6 +48,11 @@ export class QueuesService {
 			where: {
 				createdAt: {
 					equals: new Date()
+				},
+				QueueCustomer: {
+					some: {
+						wasAttended: true
+					}
 				}
 			},
 			include: {
