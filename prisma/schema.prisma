@@ -34,6 +34,7 @@ model QueueCustomer {
   name        String
   service     String
   isAwaiting  Boolean @default(true)
+  wasAttended Boolean @default(true)
 
   @@map("queuecustomers")
 }

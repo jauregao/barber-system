@@ -46,4 +46,15 @@ export class QueuecustomersController {
 		await this.queuecustomersService.attendCustomer(+id)
 		return res.status(HttpStatus.NO_CONTENT).json()
 	}
+
+	@Patch(':id')
+	async denyService(@Param() id: string, @Res() res: Response) {
+		const costumer = await this.queuecustomersService.getCustomer(+id)
+		if (!costumer) {
+			throw new NotFoundException('Cliente não encontrado.')
+		}
+
+		await this.queuecustomersService.denyService(+id)
+		return res.status(HttpStatus.NO_CONTENT).json()
+	}
 }

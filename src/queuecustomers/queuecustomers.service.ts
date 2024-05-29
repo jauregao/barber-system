@@ -32,7 +32,8 @@ export class QueuecustomersService {
 				id: customerId
 			},
 			data: {
-				isAwaiting: false
+				isAwaiting: false,
+				wasAttended: true
 			}
 		})
 	}
@@ -41,6 +42,18 @@ export class QueuecustomersService {
 		return await this.prisma.queueCustomer.findFirst({
 			where: {
 				id: customerId
+			}
+		})
+	}
+
+	async denyService(customerId: number) {
+		return await this.prisma.queueCustomer.update({
+			where: {
+				id: customerId
+			},
+			data: {
+				isAwaiting: false,
+				wasAttended: false
 			}
 		})
 	}
