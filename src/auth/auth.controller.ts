@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { Request, Response } from 'express'
-import { AuthGuard } from '@nestjs/passport'
 import { LocalAuthGuard } from './local-auth-guard'
 
 @Controller()
