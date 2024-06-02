@@ -4,13 +4,16 @@ import {
 	Controller,
 	HttpStatus,
 	Post,
-	Res
+	Res,
+	UseGuards
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import createUserDto from './dto/users'
 import { Response } from 'express'
+import { JwtAuthGuard } from 'src/auth/guards/strategies/jwt-auth.guards'
 
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
 
